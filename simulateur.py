@@ -600,6 +600,9 @@ liste_joueur.append(Joueur("Di María", "AD", 19,82,82,0,85,88,53,42))
 liste_joueur.append(Joueur("Vlahović", "BU",20,73, 88, 0,57,80,25,25))
 liste_joueur.append(Joueur("Kean", "AG",21,68,79,0,48,79,30,31))
 
+team1, team2 = "PSG", "Juventus"
+
+
 os.system('cls') #on efface la console 
 temps = 0 #minutes depuis le début de la rencontre 
 
@@ -697,7 +700,7 @@ while num != 22:
         interception2 += liste_joueur[num].Return_Interception()
     
     num += 1
-print(Fore.LIGHTRED_EX +"          | PSG - | - Juventus |")
+print(Fore.LIGHTRED_EX + f"          | {team1} - | - {team2} |")
 print("But :           " + str(but_equipe1) + " | " + str(but_equipe2))
 print("Tir :           " + str(tir_equipe1) + " | " + str(tir_equipe2))
 print("Tir cadré :     " + str(tir_cadre_equipe1) + " | " + str(tir_cadre_equipe2))
