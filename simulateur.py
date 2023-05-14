@@ -4,10 +4,8 @@ from colorama import Fore
 import time
 import os 
 
-
-
 class Joueur ():
-    
+    """Class Joueur : permet de créer les joueurs des deux équipes numéroté id entre 0 et 21"""    
     def __init__(self, nom, poste, num, passe, tir, arret, centre, dribble, defense, interception ):
         self.nom = nom
         self.poste = poste
@@ -36,7 +34,7 @@ class Joueur ():
         self.degagement_reussi = 0
         self.degagement_rate = 0
         
-        
+        #poste de chaque joueur 
         self.attaque1 = [8,9,10,]
         self.attaque2 = [19,20,21]
         self.milieux1 = [5,6,7]
@@ -45,7 +43,8 @@ class Joueur ():
         self.defenseur2 = [12,13,14,15]
         
         self.minute = 0
-        
+    
+    #fonction qui donne des info sur le joueur. 
     def Return_nom(self):
         return self.nom
 
@@ -106,6 +105,11 @@ class Joueur ():
         return self.arret
         
     def Random_Action (self):
+        """Fonction principale appelé lors de chaque action : 
+        - Aucun paramatre en entré
+        - En sortie le numéro du joueur qui a maintenant la balle 
+        Cette fonction varie selon le poste du joueur. 
+        """
         global liste_joueur, temps
         self.minute = int(temps)
         #code executé quand le joueur recoit le ballon
@@ -521,14 +525,9 @@ class Joueur ():
     
     
     def Duel(self):
-
-        global liste_joueur
-        
+        global liste_joueur  
         #defense par zone 
         #trouver le joueur qui va defendre dessus par rapport au positionnement 
-        
-        
-        
         if self.num in self.attaque1:
             adversaire = random.choice(self.defenseur2)
         
@@ -621,9 +620,8 @@ def afficher_stat(team1_stats,team2_stats):
     print(f"Duel perdu :    {team1_stats['Duel perdu']} | {team2_stats['Duel perdu']} {Fore.RESET}")
 
 def creation_joueur():  
+    """Fonction création de joueur appelé au démarage. C'est ici qu'il faut faire les modifications d'équipe"""
     liste_joueur = []
-    #création des joueur 
-    #Il faut modifier juste ici : 
     liste_joueur.append(Joueur("Donnarumma", "G",0,56,0,90,0,0,0,0,))
     liste_joueur.append(Joueur("Hakimi", "DD", 1, 81, 68, 0, 77, 79,76,78))
     liste_joueur.append(Joueur("Ramos", "DC", 2,78, 0,0,0,63,83,84))
@@ -649,15 +647,18 @@ def creation_joueur():
     liste_joueur.append(Joueur("Kean", "AG",21,68,79,0,48,79,30,31))
     return liste_joueur
 
+def Clear():
+    """Fonction qui nettoye la console"""
+    if os.name == 'nt': # si le système d'exploitation est Windows
+        os.system('cls') # effacer la console
+    else: # sinon
+        os.system('clear') # effacer la console
 
 liste_joueur = creation_joueur()
 # définition des noms des équipes
 team1, team2 = "PSG", "Juventus"
-# effacer la console
-if os.name == 'nt': # si le système d'exploitation est Windows
-    os.system('cls') # effacer la console
-else: # sinon
-    os.system('clear') # effacer la console
+
+Clear()
     
 temps = 0 #minutes depuis le début de la rencontre 
 tirage_au_sort = random.randint(0,1)
@@ -674,20 +675,17 @@ print(Fore.LIGHTRED_EX +"L'arbitre fait le tirage au sort pour le ballon : ")
 print("L'engagement est donc pour " + liste_joueur[action_joueur].Return_nom() + " car il a mit un pouce bleu à la vidéo ! " + Fore.RESET)
 temps_log = 45
 
+##boucle du jeu 
 while temps <= 90:
     action_joueur = liste_joueur[int(action_joueur)].Random_Action()
     temps += 0.09
-    
-    
     if int(temps) == temps_log:
         action_joueur = mi_temps_ballon #balle a l'equipe qui n'a pas eu l'engagement
         print(Fore.LIGHTRED_EX + "L'arbitre sifle la mi-temps ! ")
         print(Fore.LIGHTRED_EX +"Le Match reprend et la balle et pour " +  liste_joueur[action_joueur].Return_nom() + Fore.RESET)
         temps_log = -15
  
-        
-
-
+    
 print(Fore.LIGHTBLUE_EX + "Le match est terminé !! " + Fore.RESET)
 print("")
 print("")
