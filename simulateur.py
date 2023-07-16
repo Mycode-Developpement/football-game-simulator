@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 #projet de simulation de match football 11 contre 11
 import random
 from colorama import Fore
