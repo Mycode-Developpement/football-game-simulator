@@ -7,35 +7,25 @@ This is the main file executed
 
 """
 
-import dispaly_console
-import stats
-import constant
+import dispaly_console as dispaly_console
+import stats as stats
+import constant as constant
 from create_teams import create_player
 
 
 import random
 from colorama import Fore
-import sys
 
-class ConsoleCapture:
-    def __init__(self):
-        self.stdout = sys.stdout
-        self.output = []
-
-    def start_capture(self):
-        sys.stdout = self
-
-    def stop_capture(self):
-        sys.stdout = self.stdout
-
-    def write(self, text):
-        self.output.append(text)
 
 def main(action_joueur, half_time_ballon):
     global gameTime, timePerAction, halfTime
     
     temps = 0 #minutes since the start of the match
     temps_log = halfTime
+    
+    print(Fore.LIGHTRED_EX + "L'arbitre fait le tirage au sort pour le ballon : " + "l'engagement est donc pour " + list_player[action_joueur].Return_nom() + Fore.RESET)
+    print()
+
     
     while temps <= gameTime:
         
@@ -48,7 +38,13 @@ def main(action_joueur, half_time_ballon):
             print(Fore.LIGHTRED_EX + "L'arbitre sifle la mi-temps ! ")
             print(Fore.LIGHTRED_EX +"Le Match reprend et la balle et pour " +  list_player[action_joueur].Return_nom() + Fore.RESET)
             temps_log = -15
-
+    
+    print(Fore.LIGHTBLUE_EX + "Le match est terminé !! " + Fore.RESET)
+    print("")
+    print("")
+    
+    stat1, stat2 = stats.get_stat(list_player)
+    stats.display_stats(stat1 , stat2, team1, team2)
     
 dispaly_console.Clear()
 
@@ -69,18 +65,8 @@ else:
     action_joueur = 21
     half_time_ballon = 10
 
-# start of the game 
-print(Fore.LIGHTRED_EX + "L'arbitre fait le tirage au sort pour le ballon : " + "l'engagement est donc pour " + list_player[action_joueur].Return_nom() + Fore.RESET)
-print()
 
+# start of the game 
 main(action_joueur, half_time_ballon) #main function
 
-print(Fore.LIGHTBLUE_EX + "Le match est terminé !! " + Fore.RESET)
-print("")
-print("")
-
-stat1, stat2 = stats.get_stat(list_player)
-stats.display_stats(stat1 , stat2, team1, team2)
-
-
-#Created by Mycode Developpement
+#Created by Mycode Developpement / Youtube channel : https://www.youtube.com/@mycode-developpement
