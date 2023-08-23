@@ -2,7 +2,7 @@ import json
 
 
 def get_const_json():
-    with open("Settings/settings.json", "r") as json_file:
+    with open("../Settings/settings.json", "r") as json_file:
         data = json.load(json_file) 
     return data
 

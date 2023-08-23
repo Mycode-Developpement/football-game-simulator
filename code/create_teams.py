@@ -17,10 +17,10 @@ def create_player():
 def get_json_player():
     """get player data from json file"""
     
-    with open("Settings/team1.json", "r") as json_file:
+    with open("../Settings/team1.json", "r") as json_file:
         data = json.load(json_file) #team 1
     
-    with open("Settings/team2.json", "r") as json_file:
+    with open("../Settings/team2.json", "r") as json_file:
         data += json.load(json_file) #team 2
     
     return data
