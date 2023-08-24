@@ -124,6 +124,14 @@ You can also change the players on the pitch :
 | ``AG``  | Right-left |
 | ``BU``  | Stricker |
 
+## Contact Me : 
+
+- My youtube chanel : [HERE](https://www.youtube.com/@mycode-developpement)
+- My e-mail address : **mycode.developpement@gmail.com**
+
+## Licence 
+
+**LICENCE MIT @copyright 2023**
 
 
 
