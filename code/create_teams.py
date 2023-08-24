@@ -19,8 +19,11 @@ def get_json_player():
     
     with open("../Settings/team1.json", "r") as json_file:
         data = json.load(json_file) #team 1
+        data = data["player"][:11]
+       
     
     with open("../Settings/team2.json", "r") as json_file:
-        data += json.load(json_file) #team 2
+        data2 = json.load(json_file) #team 2
+        data += data2["player"][:11]
     
     return data

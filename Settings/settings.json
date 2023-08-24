@@ -2,14 +2,5 @@
     "langage" : "fr", 
     "timeGame" : 90, 
     "timePerAction" : 0.09,
-    "halfTime" : 45,
-    
-    "team1" : {
-        "name" : "PSG"
-    },
-
-    "team2" : {
-        "name" : "Juventus"
-    }
-
+    "halfTime" : 45
 }
