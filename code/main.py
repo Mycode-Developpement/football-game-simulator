@@ -10,8 +10,7 @@ This is the main file executed
 import dispaly_console as dispaly_console
 import stats as stats
 import constant as constant
-from create_teams import create_player
-
+from create_teams import create_player, create_team_composition
 
 import random
 from colorama import Fore
@@ -45,17 +44,26 @@ def main(action_joueur, half_time_ballon):
     
     stat1, stat2 = stats.get_stat(list_player)
     stats.display_stats(stat1 , stat2, team1, team2)
-    
+
+
 dispaly_console.Clear()
 
+#get data
 gameTime = constant.GAME_TIME
 timePerAction = constant.TIME_PER_ACTION
 halfTime = constant.HALF_TIME
 
 team1, team2 = constant.NAME_TEAM
 
-list_player = create_player()
+#create teams / inteligent composition
+list_player, data = create_player()
+dispo1, dispo2 = create_team_composition(data, team1, team2)
 
+#display composition
+dispaly_console.write_dispo(team1, dispo1, Fore.BLUE)
+dispaly_console.write_dispo(team2, dispo2, Fore.GREEN)
+
+#prize draw
 tirage_au_sort = random.randint(0,1)
 
 if tirage_au_sort == 1:
@@ -69,4 +77,6 @@ else:
 # start of the game 
 main(action_joueur, half_time_ballon) #main function
 
-#Created by Mycode Developpement / Youtube channel : https://www.youtube.com/@mycode-developpement
+
+
+# Created by Mycode Developpement / Youtube channel : https://www.youtube.com/@mycode-developpement

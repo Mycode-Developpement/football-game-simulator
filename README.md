@@ -122,7 +122,7 @@ You can also change the players on the pitch :
 | ``MC``  | central midfielder |
 | ``AD``  | Right-wing |
 | ``AG``  | Right-left |
-| ``BU``  | Stricker |
+| ``AC``  | Stricker |
 
 ## Contact Me : 
 
