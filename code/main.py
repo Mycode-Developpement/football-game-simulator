@@ -10,7 +10,7 @@ This is the main file executed
 import dispaly_console as dispaly_console
 import stats as stats
 import constant as constant
-from create_teams import create_player, create_team_composition
+from create_teams import * 
 
 import random
 from colorama import Fore
@@ -56,12 +56,15 @@ halfTime = constant.HALF_TIME
 team1, team2 = constant.NAME_TEAM
 
 #create teams / inteligent composition
-list_player, data = create_player()
-dispo1, dispo2 = create_team_composition(data, team1, team2)
+
+data = get_json_player()
+dispo1, dispo2, adversary_team, id_dispo1, id_dispo2 = create_team_composition(data)
+
+list_player = create_player(data, adversary_team, [id_dispo1, id_dispo2])
 
 #display composition
-dispaly_console.write_dispo(team1, dispo1, Fore.BLUE)
-dispaly_console.write_dispo(team2, dispo2, Fore.GREEN)
+dispaly_console.write_dispo(team1, dispo1, Fore.LIGHTYELLOW_EX)
+dispaly_console.write_dispo(team2, dispo2, Fore.LIGHTGREEN_EX)
 
 #prize draw
 tirage_au_sort = random.randint(0,1)

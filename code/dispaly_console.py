@@ -13,7 +13,7 @@ def write_dispo(nameTeam, dispo, color):
     formatted_text = ""
     
     print(f"{color}Composition {nameTeam} :")
-
+    
     for element in dispo:
         line = "        ".join(element)
         indentation = (max_width - len(line)) // 2

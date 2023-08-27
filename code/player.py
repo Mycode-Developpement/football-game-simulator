@@ -3,7 +3,7 @@ from colorama import Fore
 
 class Joueur ():
     """Class Joueur : permet de créer les joueurs des deux équipes numéroté id entre 0 et 21"""    
-    def __init__(self, nom, poste, num, passe, tir, arret, centre, dribble, defense, interception ):
+    def __init__(self, nom, poste, num, passe, tir, arret, centre, dribble, defense, interception, adversary, color1, color2, dispo, dispo_adversary):
         self.nom = nom
         self.poste = poste
         self.num = num
@@ -14,9 +14,15 @@ class Joueur ():
         self.dribble = dribble
         self.defense = defense
         self.interception = interception
+        self.color1 = color1
+        self.color2 = color2
+        
+        self.adversary = adversary #the opponents with whom the player will have most of these duels (the same positions)
+        self.dispo = dispo
+        self.dispo_adversary = dispo_adversary
+
         
         #stat pour ceux du match en particulier 
-        
         self.nombre_but = 0
         self.nombre_tir_cadre = 0
         self.nombre_tir = 0
@@ -30,14 +36,6 @@ class Joueur ():
         self.nombre_interception = 0
         self.degagement_reussi = 0
         self.degagement_rate = 0
-        
-        #poste de chaque joueur 
-        self.attaque1 = [8,9,10,]
-        self.attaque2 = [19,20,21]
-        self.milieux1 = [5,6,7]
-        self.milieux2 = [16,17,18]
-        self.defenseur1 = [1,2,3,4]
-        self.defenseur2 = [12,13,14,15]
         
         self.minute = 0
     
@@ -109,11 +107,10 @@ class Joueur ():
         """
         self.minute = int(temps)
         self.list_player = list_player
-       
         
         #code executé quand le joueur recoit le ballon
-        if self.poste == "BU":
-            random_action = random.randint(0,60)
+        if self.poste == "AC":
+            random_action = random.randint(0,42)
             if random_action == 1:
                 #tir dans la surface 
                 return self.Tir_dans_la_surface(self.list_player)
@@ -124,7 +121,7 @@ class Joueur ():
             elif random_action == 3 or random_action == 4:
                 return self.Passe_courte()
             
-            elif random_action == 5:
+            elif random_action <= 7:
                 return self.Duel()
             
             else: #passe
@@ -132,7 +129,7 @@ class Joueur ():
         
         
         elif self.poste == "AG" or self.poste == "AD":
-            random_action = random.randint(0,60)
+            random_action = random.randint(0,55)
             if random_action == 2:
                 #tir dans la surface 
                 return self.Tir_dans_la_surface(self.list_player)
@@ -140,10 +137,10 @@ class Joueur ():
             elif random_action <= 4:
                 return self.Tir_hors_surface()
             
-            elif random_action <= 7:
+            elif random_action <= 8:
                 return self.Centre()
             
-            elif random_action <= 12:
+            elif random_action <= 13:
                 return self.Passe_courte()
             
             elif random_action == 30:
@@ -168,15 +165,15 @@ class Joueur ():
                 return self.Passe()
         
         elif self.poste == "DD" or self.poste == "DG":
-            random_action = random.randint(0,30)
+            random_action = random.randint(0,40)
             
             if random_action == 1:
                 return self.Centre()
             
-            elif random_action <= 10:
+            elif random_action <= 15:
                 return self.Passe_courte()
             
-            elif random_action == 11:
+            elif random_action <= 18:
                 return self.Duel()
             
             else: #passe
@@ -231,16 +228,13 @@ class Joueur ():
             
             #maintenant il faut verifier si ce n'est pas intercepté
             
-            if self.num <= 10:
-                defenseur = self.defenseur2
-            else:
-                defenseur = self.defenseur1
+            defenseur = self.adversary
             
             #choisir l'adversaire qui peut couper le centre 
             adversaire = random.choice(defenseur)
             note_defense = self.list_player[adversaire].Return_note_interception() #recup note interception du defesneur choisie 
             
-            random_note = random.randint(0,6000)
+            random_note = random.randint(0,5000)
             
             if random_note > note_defense:
                 if self.num <= 10:           
@@ -270,7 +264,7 @@ class Joueur ():
     def Tir_dans_la_surface(self, list_player):
         self.list_player = list_player
         
-        random_note = random.randint(0,130)
+        random_note = random.randint(0,140)
         self.nombre_tir += 1      
         if random_note > self.tir : 
             #le tir est raté
@@ -280,7 +274,7 @@ class Joueur ():
                 self.action = 0
                 # On rend la balle au gardien 
                 
-            print (Fore.CYAN +self.nom + " a tiré dans la surface mais n'a pas réussi à cadré ! Balle pour le gardien adverse. (" + str(self.minute) + "min) " + Fore.RESET)
+            print (self.color1 +self.nom + " a tiré dans la surface mais n'a pas réussi à cadré ! Balle pour le gardien adverse. (" + str(self.minute) + "min) " + Fore.RESET)
             
             
         
@@ -304,7 +298,7 @@ class Joueur ():
             if random_note > note_arret_gardien:
                 #il y a donc but 
                 print("")
-                print(Fore.RED + self.nom + " a tiré dans la surface et a marqué !!! But !! ("  + str(self.minute) + "min) ")
+                print(self.color2 + self.nom + " a tiré dans la surface et a marqué !!! But !! ("  + str(self.minute) + "min) ")
                 print(Fore.RESET + "\n")
                 self.action = engagement
                 self.nombre_but += 1
@@ -314,7 +308,7 @@ class Joueur ():
             else:
                 #le gardien l'arrete, il garde la balle 
                 self.action = num_gardien
-                print(Fore.GREEN + self.nom + " a tiré dans la surface surface mais le gardien l'a arrêter ! (" + str(self.minute) + "min) ")
+                print(self.color1 + self.nom + " a tiré dans la surface surface mais le gardien l'a arrêter ! (" + str(self.minute) + "min) ")
                 print(Fore.RESET + "\n")
                 self.nombre_tir_cadre += 1
                 self.list_player[self.action].Arret_gardien() #+1 arret
@@ -325,7 +319,7 @@ class Joueur ():
     
     def Tir_hors_surface(self):
  
-        random_note = random.randint(0,150) 
+        random_note = random.randint(0,160) 
         self.nombre_tir += 1
         
         if random_note > self.tir : 
@@ -335,7 +329,7 @@ class Joueur ():
             else:
                 self.action = 0
                 # On rend la balle au gardien 
-            print (self.nom + " a tiré en dehors de la surface et n'a pas réussi à cadré ! Balle pour le gardien adverse. ("  + str(self.minute) + "min) ")
+            print (self.color1 + self.nom + " a tiré en dehors de la surface et n'a pas réussi à cadré ! Balle pour le gardien adverse. ("  + str(self.minute) + "min) ")
         
         else:
             #le tir est cadré 
@@ -356,7 +350,7 @@ class Joueur ():
             if random_note > note_arret_gardien:
                 #il y a donc but 
                 print()
-                print(Fore.RED + self.nom + " a tiré hors de la surface et a marqué !!! But !! ("  + str(self.minute) + "min) ")
+                print(self.color2 + self.nom + " a tiré hors de la surface et a marqué !!! But !! ("  + str(self.minute) + "min) ")
                 print(Fore.RESET + "\n")
                 self.action = engagement
                 self.nombre_but += 1
@@ -366,7 +360,7 @@ class Joueur ():
             else:
                 #le gardien l'arrete, il garde la balle 
                 self.action = num_gardien
-                print(Fore.GREEN + self.nom + " a tiré hors de la surface mais le gardien l'a arrêter ! ("  + str(self.minute) + "min) ")
+                print(self.color1 + self.nom + " a tiré hors de la surface mais le gardien l'a arrêter ! ("  + str(self.minute) + "min) ")
                 self.nombre_tir_cadre += 1
                 print(Fore.RESET + "\n")
                 self.list_player[self.action].Arret_gardien()
@@ -378,7 +372,7 @@ class Joueur ():
         #centre des latéraux ! 
 
         
-        random_note = random.randint(0,105)
+        random_note = random.randint(0,75)
         
         if random_note > self.centre:
             # sors en 6 mètre 
@@ -386,48 +380,39 @@ class Joueur ():
                 self.action = 11
             else:
                 self.action = 0
-            print(Fore.BLUE+ self.nom + " a raté son centre qui file en sorti de but (" + str(self.minute) + "min) " + Fore.RESET)
+            print(self.color1+ self.nom + " a raté son centre qui file en sorti de but (" + str(self.minute) + "min) " + Fore.RESET)
             
             self.centre_rate += 1
 
         else:
             #centre réussi
-            if self.num <= 10:
-                if self.num == 10 or self.num == 5:
-                    self.action = random.randint(8,9)
-                else:
-                    self.action = random.randint(9,10)
-               
-            
+            self.action = self.num
+            if len(self.dispo[-1]) >= 2:  
+                while self.action == self.num:
+                    self.action = random.choice(self.dispo[-1])
             else:
-                if self.num == 21:
-                    self.action = random.randint(19,20)
-                else:
-                    self.action = random.randint(20,21)
+                while self.action == self.num:
+                    #print(Fore.RED+ "Pas assez d'attaquants !"+ Fore.RESET)
+                    playerListAction = self.dispo[-1] + self.dispo[-2]
+                    self.action = random.choice(playerListAction)
                     
             #maintenant il faut verifier si ce n'est pas intercepté
             
-            if self.num <= 10:
-                defenseur = self.defenseur2
-            else:
-                defenseur = self.defenseur1
-            
-            #choisir l'adversaire qui peut couper le centre 
-            adversaire = random.choice(defenseur)
-            note_defense = self.list_player[adversaire].Return_note_interception() #recup note interception du defesneur choisie 
+            defenseur = random.choice(self.dispo_adversary[1])
+            note_defense = self.list_player[defenseur].Return_note_interception() + (len(self.dispo_adversary[1])*3) #recup note interception du defenseur choisie 
             
             random_note = random.randint(0,160)
             
             if random_note > note_defense:
-                print( Fore.YELLOW + self.nom + " réussi son centre vers " + self.list_player[self.action].Return_nom()  + " ("+ str(self.minute) + "min) "+ Fore.RESET)
+                print( self.color1 + self.nom + " réussi son centre vers " + self.list_player[self.action].Return_nom()  + " ("+ str(self.minute) + "min) "+ Fore.RESET)
                 self.centre_reussi += 1 
                 return self.list_player[self.action].Tir_dans_la_surface(self.list_player) #il tir obligatoirement car le defenseur ne la touche pas 
 
 
             else:#le defenseur la coupe 
-                self.action = adversaire
+                self.action = defenseur
                 
-                print( Fore.YELLOW + self.nom + " réussi son centre mais "+ self.list_player[int(self.action)].Return_nom() + " l'intercepte ! (" + str(self.minute) + "min) "+ Fore.RESET)
+                print( Fore.MAGENTA + self.nom + " réussi son centre mais "+ self.list_player[int(self.action)].Return_nom() + " l'intercepte ! (" + str(self.minute) + "min) "+ Fore.RESET)
                 
                 self.centre_rate += 1
                 self.list_player[self.action].Interception_reussi()
@@ -488,10 +473,7 @@ class Joueur ():
             
             #maintenant il faut verifier si ce n'est pas intercepté
             
-            if self.num <= 10:
-                defenseur = self.defenseur2
-            else:
-                defenseur = self.defenseur1
+            defenseur = self.adversary
             
             #choisir l'adversaire qui peut couper le centre 
             adversaire = random.choice(defenseur)
@@ -525,27 +507,16 @@ class Joueur ():
     
     
     def Duel(self):
-
         #defense par zone 
-        #trouver le joueur qui va defendre dessus par rapport au positionnement 
-        if self.num in self.attaque1:
-            adversaire = random.choice(self.defenseur2)
+        random_ = random.randint(0,5)
+        if random_ == 2:
+            if self.num <= 10:  
+                adversaire = random.randint(12,21)
+            else:
+                adversaire = random.randint(1,10)
+        else:
+            adversaire = random.choice(self.adversary)
         
-        elif self.num in self.attaque2:
-            adversaire = random.choice(self.defenseur1)
-        
-        elif self.num in self.milieux1:
-            adversaire = random.choice(self.milieux2)
-        
-        elif self.num in self.milieux2:
-            adversaire = random.choice(self.milieux1)
-        
-        elif self.num in self.defenseur1:
-            adversaire = random.choice(self.attaque2)
-        
-        elif self.num in self.defenseur2:
-            adversaire = random.choice(self.attaque1)
-            
         #on a maintenant l'adversaire 
         note_defense_adversaire = self.list_player[adversaire].Return_note_defense()
         note_attaque = self.dribble + random.randint(0,5)
@@ -561,6 +532,7 @@ class Joueur ():
             if random.randint(1,5) == 2:
                 print(self.nom + " a gagné son duel face à " + self.list_player[adversaire].Return_nom() + " grâce a un super geste technique ! (" + str(self.minute)+ "min) ")
         else:
+            #lose this duel 
             self.action = adversaire
             self.duel_perdu += 1
             self.list_player[self.action].Duel_gagner()

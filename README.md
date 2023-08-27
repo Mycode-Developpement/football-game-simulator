@@ -124,6 +124,73 @@ You can also change the players on the pitch :
 | ``AG``  | Right-left |
 | ``AC``  | Stricker |
 
+## Intelligent placement :
+
+your players will automatically move to the position you've defined. The tactics are endless - it's up to you to create them! 
+
+ 
+
+### Composition PSG :
+    
+                                Donnarumma
+
+            Hakimi        Ramos        Marquinhos        Mendès
+
+                   Veratti        Vitinha        Sanches
+
+                     Messi        Mbappé        Neymar
+
+
+
+### Composition Real Madrid :
+                                 Courtois
+
+             Carvajal        Rüdiger        Alaba        Nacho
+
+       Valverde        Tchouaméni        Camavinga        Bellingham
+
+                          Vinícius        Rodrygo
+
+## Match day :
+
+The most important actions of the match are displayed in the console.
+
+Example action in french :
+
+``` txt
+
+Mbappé a tiré hors de la surface et a marqué !!! But !! (64min)
+
+Mbappé a tiré en dehors de la surface et n'a pas réussi à cadré ! Balle pour le gardien adverse. (67min)
+Carvajal a perdu son duel face à Ramos (69min)
+Sanches a perdu son duel face à Tchouaméni (69min)
+Neymar réussi son centre vers Mbappé (71min)
+Mbappé a tiré dans la surface mais n'a pas réussi à cadré ! Balle pour le gardien adverse. (71min)
+Alaba a gagné son duel face à Neymar grâce a un super geste technique ! (74min)
+Rodrygo a tiré hors de la surface mais le gardien l'a arrêter ! (75min)
+
+```
+
+End-of-match statistics in French :
+
+``` python output
++-----------------------+-------------+---------------------+
+|       Catégorie       |     PSG     |     Real Madrid     |
++-----------------------+-------------+---------------------+
+|          But          |      2      |          0          |
+|          Tir          |      11     |          8          |
+|       Tir_cadré       |      5      |          4          |
+|      Passe_réussi     |     248     |         414         |
+|       Passe_raté      |      43     |          45         |
+|     Centre_réussi     |      4      |          1          |
+|      Centre_raté      |      4      |          3          |
+|       Duel_gagné      |      19     |          18         |
+|       Duel_perdu      |      18     |          19         |
+|         Arrêt         |      4      |          3          |
+|      Interception     |      3      |          6          |
++-----------------------+-------------+---------------------+
+```
+
 ## Contact Me : 
 
 - My youtube chanel : [HERE](https://www.youtube.com/@mycode-developpement)
