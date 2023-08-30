@@ -4,7 +4,9 @@
 
 **Relive the world's greatest soccer posters or those from your favorite teams.**
 
-This is a football match simulator where 11 players on each team play against each other. The simulator is currently in beta version! The comments and sentences in the game are written in French.
+This is a football match simulator where 11 players on each team play against each other. The simulator is currently in beta version!
+
+![IMAGE FOOTBALL GAME SIMULATOR](./image/@Mycode-developpement.png)
 
 </div>
 
@@ -56,11 +58,12 @@ You can customize your gaming experience by changing these settings :
 ``settings.json``
 
 ``` json
- {
-    "langage" : "fr", 
+{
+    "langage" : "fr",
     "timeGame" : 90, 
     "timePerAction" : 0.09,
-    "halfTime" : 45
+    "halfTime" : 45,
+    "timeDisplay" : 0.01
 }
 ```
 
@@ -71,6 +74,7 @@ You can customize your gaming experience by changing these settings :
 | ``timeGame``  | This parameter corresponds to the match time [value] : **integer** |
 | ``timePerAction``  | This parameter will change the number of actions per match: the lower the number, the more actions there will be in the match.  [value] : **integer or float** |
 | ``halfTime``  | This parameter corresponds to the half-time of the match [value] : **integer** |
+| ``timeDisplay``  | For an action-by-action display of the match [value] : **integer or float** / 0 : instant / 1 : very long |
 
 You can also change the players on the pitch :
 

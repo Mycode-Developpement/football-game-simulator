@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+#LICENCE MIT @copyright 2023 Mycode Developpement
+
 """
 An 11 versus 11 football game simulator project, developed by Mycode-developpement.
 This is the main file executed
@@ -14,9 +16,10 @@ from create_teams import *
 
 import random
 from colorama import Fore
+import time
 
 
-def main(action_joueur, half_time_ballon):
+def main(action_joueur, half_time_ballon, timeDisplay):
     global gameTime, timePerAction, halfTime
     
     temps = 0 #minutes since the start of the match
@@ -37,6 +40,8 @@ def main(action_joueur, half_time_ballon):
             print(Fore.LIGHTRED_EX + textLanguage[12][0])
             print(Fore.LIGHTRED_EX +textLanguage[13][0] +  list_player[action_joueur].Return_nom() + Fore.RESET)
             temps_log = -15
+        
+        time.sleep(timeDisplay)
     
     print(Fore.LIGHTBLUE_EX + Fore.LIGHTRED_EX +textLanguage[14][0] + Fore.RESET)
     
@@ -44,6 +49,7 @@ def main(action_joueur, half_time_ballon):
     print("")
     
     stat1, stat2 = stats.get_stat(list_player)
+    time.sleep(timeDisplay)
     stats.display_stats(stat1 , stat2, team1, team2, textLanguage[15])
 
 
@@ -55,6 +61,8 @@ timePerAction = constant.TIME_PER_ACTION
 halfTime = constant.HALF_TIME
 
 team1, team2 = constant.NAME_TEAM
+
+timeDisplay = constant.TIME_DISPLAY
 
 textLanguage = constant.TEXT_LANGUAGE[constant.LANGUAGE]
 
@@ -81,7 +89,7 @@ else:
 
 
 # start of the game 
-main(action_joueur, half_time_ballon) #main function
+main(action_joueur, half_time_ballon, timeDisplay) #main function
 
 
 

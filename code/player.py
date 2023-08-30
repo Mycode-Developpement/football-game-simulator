@@ -115,7 +115,7 @@ class Joueur ():
             random_action = random.randint(0,42)
             if random_action == 1:
                 #tir dans la surface 
-                return self.Tir_dans_la_surface(self.list_player)
+                return self.Tir_dans_la_surface(self.list_player, self.minute)
             
             elif random_action == 2:
                 return self.Tir_hors_surface()
@@ -134,7 +134,7 @@ class Joueur ():
             random_action = random.randint(0,55)
             if random_action == 2:
                 #tir dans la surface 
-                return self.Tir_dans_la_surface(self.list_player)
+                return self.Tir_dans_la_surface(self.list_player, self.minute)
             
             elif random_action <= 4:
                 return self.Tir_hors_surface()
@@ -262,9 +262,9 @@ class Joueur ():
     
     
     
-    def Tir_dans_la_surface(self, list_player):
+    def Tir_dans_la_surface(self, list_player, temps):
         self.list_player = list_player
-        
+        self.minute = temps
         random_note = random.randint(0,140)
         self.nombre_tir += 1      
         if random_note > self.tir : 
@@ -411,7 +411,7 @@ class Joueur ():
                 print(self.color1 + self.nom + self.text[7][0] + self.list_player[self.action].Return_nom() + self.minute + Fore.RESET)
                 ##print( self.color1 + self.nom + " réussi son centre vers " + self.list_player[self.action].Return_nom()  + " ("+ str(self.minute) + "min) "+ Fore.RESET)
                 self.centre_reussi += 1 
-                return self.list_player[self.action].Tir_dans_la_surface(self.list_player) #il tir obligatoirement car le defenseur ne la touche pas 
+                return self.list_player[self.action].Tir_dans_la_surface(self.list_player, self.minute) #il tir obligatoirement car le defenseur ne la touche pas 
 
 
             else:#le defenseur la coupe 
