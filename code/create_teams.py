@@ -2,7 +2,7 @@ from player import Joueur
 import json
 from colorama import Fore
 
-def create_player(data, adversary_team, dispo):  
+def create_player(data, adversary_team, dispo, textLanguage):  
     """Fonction création de joueur appelé au démarage. C'est ici qu'il faut faire les modifications d'équipe"""
 
     # Create a list of opponents in the same position (striker vs. defender and midfielder vs. midfielder).
@@ -13,7 +13,7 @@ def create_player(data, adversary_team, dispo):
     for i, player in enumerate(data):
         list_player.append(Joueur(player['name'], player['position'], player['id'], player['pass'],player['shot'],
                                   player['goalkeeper'],player['center'],player['dribble'],player['defense'],player['interceptions'], adversary_team[i],
-                                  list_color[i//11][0], list_color[i//11][1], dispo[i//11], dispo[-i//11]))
+                                  list_color[i//11][0], list_color[i//11][1], dispo[i//11], dispo[-i//11], textLanguage))
     return list_player
 
 

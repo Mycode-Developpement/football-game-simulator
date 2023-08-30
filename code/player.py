@@ -3,7 +3,7 @@ from colorama import Fore
 
 class Joueur ():
     """Class Joueur : permet de créer les joueurs des deux équipes numéroté id entre 0 et 21"""    
-    def __init__(self, nom, poste, num, passe, tir, arret, centre, dribble, defense, interception, adversary, color1, color2, dispo, dispo_adversary):
+    def __init__(self, nom, poste, num, passe, tir, arret, centre, dribble, defense, interception, adversary, color1, color2, dispo, dispo_adversary, text):
         self.nom = nom
         self.poste = poste
         self.num = num
@@ -20,7 +20,8 @@ class Joueur ():
         self.adversary = adversary #the opponents with whom the player will have most of these duels (the same positions)
         self.dispo = dispo
         self.dispo_adversary = dispo_adversary
-
+        
+        self.text = text
         
         #stat pour ceux du match en particulier 
         self.nombre_but = 0
@@ -37,7 +38,7 @@ class Joueur ():
         self.degagement_reussi = 0
         self.degagement_rate = 0
         
-        self.minute = 0
+        self.minute = "(0min)"
     
     #fonction qui donne des info sur le joueur. 
     def Return_nom(self):
@@ -106,6 +107,7 @@ class Joueur ():
         Cette fonction varie selon le poste du joueur. 
         """
         self.minute = int(temps)
+        self.minute = f"({self.minute} min)"
         self.list_player = list_player
         
         #code executé quand le joueur recoit le ballon
@@ -209,8 +211,7 @@ class Joueur ():
                 return self.Passe()
             
 
-    def Passe(self):
-     
+    def Passe(self): 
         self.action = self.num 
         random_note = random.randint(0,95)  #note aléatoire qui permet de savoir si un geste est réussi
         
@@ -273,9 +274,8 @@ class Joueur ():
             else:
                 self.action = 0
                 # On rend la balle au gardien 
-                
-            print (self.color1 +self.nom + " a tiré dans la surface mais n'a pas réussi à cadré ! Balle pour le gardien adverse. (" + str(self.minute) + "min) " + Fore.RESET)
-            
+            print (self.color1 + self.nom + self.text[0][0] + self.minute + Fore.RESET)
+            ##print (self.color1 +self.nom + " a tiré dans la surface mais n'a pas réussi à cadré ! Balle pour le gardien adverse. (" + str(self.minute) + "min) " + Fore.RESET)
             
         
         else:
@@ -296,10 +296,11 @@ class Joueur ():
             random_note = random.randint(0,130) #savoir si le gardien l'arrête
             
             if random_note > note_arret_gardien:
-                #il y a donc but 
+                #il y a donc but dans la surface 
                 print("")
-                print(self.color2 + self.nom + " a tiré dans la surface et a marqué !!! But !! ("  + str(self.minute) + "min) ")
-                print(Fore.RESET + "\n")
+                print(self.color2 + self.nom + self.text[1][0] + self.minute + Fore.RESET + "\n")
+                ##print(self.color2 + self.nom + " a tiré dans la surface et a marqué !!! But !! ("  + str(self.minute) + "min) ")
+                ##print(Fore.RESET + "\n")
                 self.action = engagement
                 self.nombre_but += 1
                 self.nombre_tir_cadre += 1
@@ -308,11 +309,11 @@ class Joueur ():
             else:
                 #le gardien l'arrete, il garde la balle 
                 self.action = num_gardien
-                print(self.color1 + self.nom + " a tiré dans la surface surface mais le gardien l'a arrêter ! (" + str(self.minute) + "min) ")
-                print(Fore.RESET + "\n")
+                print(self.color1 + self.nom + self.text[2][0] + self.minute + Fore.RESET + "\n")
+                ##print(self.color1 + self.nom + " a tiré dans la surface surface mais le gardien l'a arrêter ! (" + str(self.minute) + "min) ")
+                ##print(Fore.RESET + "\n")
                 self.nombre_tir_cadre += 1
                 self.list_player[self.action].Arret_gardien() #+1 arret
-                
  
         return self.action
     
@@ -329,7 +330,9 @@ class Joueur ():
             else:
                 self.action = 0
                 # On rend la balle au gardien 
-            print (self.color1 + self.nom + " a tiré en dehors de la surface et n'a pas réussi à cadré ! Balle pour le gardien adverse. ("  + str(self.minute) + "min) ")
+            print(self.color1 + self.nom + self.text[3][0] + self.minute + Fore.RESET + "\n")
+            #print (self.color1 + self.nom + " a tiré en dehors de la surface et n'a pas réussi à cadré ! Balle pour le gardien adverse. ("  + str(self.minute) + "min) ")
+        
         
         else:
             #le tir est cadré 
@@ -349,9 +352,9 @@ class Joueur ():
             
             if random_note > note_arret_gardien:
                 #il y a donc but 
-                print()
-                print(self.color2 + self.nom + " a tiré hors de la surface et a marqué !!! But !! ("  + str(self.minute) + "min) ")
-                print(Fore.RESET + "\n")
+                print("\n" +self.color2 + self.nom + self.text[4][0] + self.minute + Fore.RESET + "\n")
+                ##print(self.color2 + self.nom + " a tiré hors de la surface et a marqué !!! But !! ("  + str(self.minute) + "min) ")
+                ##print(Fore.RESET + "\n")
                 self.action = engagement
                 self.nombre_but += 1
                 self.nombre_tir_cadre += 1
@@ -360,9 +363,9 @@ class Joueur ():
             else:
                 #le gardien l'arrete, il garde la balle 
                 self.action = num_gardien
-                print(self.color1 + self.nom + " a tiré hors de la surface mais le gardien l'a arrêter ! ("  + str(self.minute) + "min) ")
+                print(self.color1 + self.nom + self.text[5][0] + self.minute + Fore.RESET + "\n")
+                ##print(self.color1 + self.nom + " a tiré hors de la surface mais le gardien l'a arrêter ! ("  + str(self.minute) + "min) ")
                 self.nombre_tir_cadre += 1
-                print(Fore.RESET + "\n")
                 self.list_player[self.action].Arret_gardien()
           
         return self.action
@@ -371,7 +374,6 @@ class Joueur ():
     def Centre(self):
         #centre des latéraux ! 
 
-        
         random_note = random.randint(0,75)
         
         if random_note > self.centre:
@@ -380,7 +382,9 @@ class Joueur ():
                 self.action = 11
             else:
                 self.action = 0
-            print(self.color1+ self.nom + " a raté son centre qui file en sorti de but (" + str(self.minute) + "min) " + Fore.RESET)
+            
+            print(self.color1 + self.nom + self.text[6][0] + self.minute + Fore.RESET + "\n")
+            ##print(Fore.RED+ self.nom + " a raté son centre qui file en sorti de but (" + str(self.minute) + "min) " + Fore.RESET)
             
             self.centre_rate += 1
 
@@ -404,15 +408,16 @@ class Joueur ():
             random_note = random.randint(0,160)
             
             if random_note > note_defense:
-                print( self.color1 + self.nom + " réussi son centre vers " + self.list_player[self.action].Return_nom()  + " ("+ str(self.minute) + "min) "+ Fore.RESET)
+                print(self.color1 + self.nom + self.text[7][0] + self.list_player[self.action].Return_nom() + self.minute + Fore.RESET)
+                ##print( self.color1 + self.nom + " réussi son centre vers " + self.list_player[self.action].Return_nom()  + " ("+ str(self.minute) + "min) "+ Fore.RESET)
                 self.centre_reussi += 1 
                 return self.list_player[self.action].Tir_dans_la_surface(self.list_player) #il tir obligatoirement car le defenseur ne la touche pas 
 
 
             else:#le defenseur la coupe 
                 self.action = defenseur
-                
-                print( Fore.MAGENTA + self.nom + " réussi son centre mais "+ self.list_player[int(self.action)].Return_nom() + " l'intercepte ! (" + str(self.minute) + "min) "+ Fore.RESET)
+                print(self.color1 + self.nom + self.text[8][0][0] + self.list_player[int(self.action)].Return_nom()+ self.text[8][1][0] + self.minute + Fore.RESET)
+                ##print( self.color1 + self.nom + " réussi son centre mais "+ self.list_player[int(self.action)].Return_nom() + " l'intercepte ! (" + str(self.minute) + "min) "+ Fore.RESET)
                 
                 self.centre_rate += 1
                 self.list_player[self.action].Interception_reussi()
@@ -425,10 +430,7 @@ class Joueur ():
         
         if random_note > self.passe:
             #passe raté
-            if self.num <= 10:   
-                self.action = random.randint(11,21)
-            else:
-                self.action = random.randint(0,10)
+            self.action = random.choice(self.adversary)
             
             #print(self.nom + " a raté sa passe courte ! ")
             self.passe_rate += 1
@@ -530,15 +532,16 @@ class Joueur ():
             
             self.list_player[adversaire].Duel_perdu()
             if random.randint(1,5) == 2:
-                print(self.nom + " a gagné son duel face à " + self.list_player[adversaire].Return_nom() + " grâce a un super geste technique ! (" + str(self.minute)+ "min) ")
+                print(self.nom + self.text[9][0][0] + self.list_player[adversaire].Return_nom() + self.text[9][1][0] + self.minute)
+                ##print(self.nom + " a gagné son duel face à " + self.list_player[adversaire].Return_nom() + " grâce a un super geste technique ! (" + str(self.minute)+ "min) ")
         else:
             #lose this duel 
             self.action = adversaire
             self.duel_perdu += 1
             self.list_player[self.action].Duel_gagner()
             if random.randint(1,5) == 2:
-                print(self.nom + " a perdu son duel face à " + self.list_player[adversaire].Return_nom() + " (" + str(self.minute) + "min) " )
+                print(self.nom + self.text[10][0] + self.list_player[adversaire].Return_nom() + self.minute)
+                ##print(self.nom + " a perdu son duel face à " + self.list_player[adversaire].Return_nom() + " (" + str(self.minute) + "min) " )
         
 
         return self.action
-

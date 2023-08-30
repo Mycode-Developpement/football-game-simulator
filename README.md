@@ -67,7 +67,7 @@ You can customize your gaming experience by changing these settings :
 
 | Key  | Value |
 | ------------- | ------------- |
-| ``langage``  | unavailable  |
+| ``langage``  | France : ``fr``  / English : ``en``  / spanish : ``es``  / German : ``de``  |
 | ``timeGame``  | This parameter corresponds to the match time [value] : **integer** |
 | ``timePerAction``  | This parameter will change the number of actions per match: the lower the number, the more actions there will be in the match.  [value] : **integer or float** |
 | ``halfTime``  | This parameter corresponds to the half-time of the match [value] : **integer** |
@@ -155,40 +155,45 @@ your players will automatically move to the position you've defined. The tactics
 
 The most important actions of the match are displayed in the console.
 
-Example action in french :
-
-``` txt
-
-Mbappé a tiré hors de la surface et a marqué !!! But !! (64min)
-
-Mbappé a tiré en dehors de la surface et n'a pas réussi à cadré ! Balle pour le gardien adverse. (67min)
-Carvajal a perdu son duel face à Ramos (69min)
-Sanches a perdu son duel face à Tchouaméni (69min)
-Neymar réussi son centre vers Mbappé (71min)
-Mbappé a tiré dans la surface mais n'a pas réussi à cadré ! Balle pour le gardien adverse. (71min)
-Alaba a gagné son duel face à Neymar grâce a un super geste technique ! (74min)
-Rodrygo a tiré hors de la surface mais le gardien l'a arrêter ! (75min)
+Example action according to your language :
 
 ```
 
-End-of-match statistics in French :
+Vinícius shot inside the penalty area, but the goalkeeper stopped it. (43 min)
 
-``` python output
-+-----------------------+-------------+---------------------+
-|       Catégorie       |     PSG     |     Real Madrid     |
-+-----------------------+-------------+---------------------+
-|          But          |      2      |          0          |
-|          Tir          |      11     |          8          |
-|       Tir_cadré       |      5      |          4          |
-|      Passe_réussi     |     248     |         414         |
-|       Passe_raté      |      43     |          45         |
-|     Centre_réussi     |      4      |          1          |
-|      Centre_raté      |      4      |          3          |
-|       Duel_gagné      |      19     |          18         |
-|       Duel_perdu      |      18     |          19         |
-|         Arrêt         |      4      |          3          |
-|      Interception     |      3      |          6          |
-+-----------------------+-------------+---------------------+
+Mendès won his duel against Vinícius with a superb technical move ! (44 min)
+The referee blows the halftime whistle!
+The match resumes and the ball is with Neymar
+Vinícius won his duel against Ramos with a superb technical move ! (51 min)
+Neymar crosses successfully to Messi(52 min)
+
+Messi shot inside the penalty area and scored!!! Goal!! (52 min)
+
+Neymar crosses successfully but Carvajal intercepts (52 min)
+Mendès won his duel against Rodrygo with a superb technical move ! (54 min)
+Mendès crosses successfully but Nacho intercepts (54 min)
+Neymar shot from outside the penalty area, but the goalkeeper stopped it. (60 min)
+
+```
+
+End-of-match statistics :
+
+```
++--------------------------+-------------+---------------------+
+|         Category         |     PSG     |     Real Madrid     |
++--------------------------+-------------+---------------------+
+|           Goal           |      2      |          0          |
+|           Shot           |      13     |          6          |
+|      Shot on target      |      8      |          2          |
+|     Successful pass      |     267     |         361         |
+|       Missed pass        |      38     |          44         |
+|     Successful cross     |      5      |          1          |
+|       Missed cross       |      4      |          1          |
+|         Duel won         |      23     |          37         |
+|        Duel lost         |      37     |          23         |
+|           Save           |      2      |          6          |
+|       Interception       |      1      |          8          |
++--------------------------+-------------+---------------------+
 ```
 
 ## Contact Me : 
@@ -198,7 +203,7 @@ End-of-match statistics in French :
 
 ## Licence 
 
-**LICENCE MIT @copyright 2023**
+**LICENCE MIT @copyright 2023 Mycode Developpement**
 
 
 

@@ -37,16 +37,16 @@ def get_stat(list_joueur):
 
 
 
-def display_stats(team1_stats,team2_stats, team1_name, team2_name):
+def display_stats(team1_stats,team2_stats, team1_name, team2_name, text):
      # Affiche les statistiques des deux équipes
      
     tab = PrettyTable()
     tab.padding_width = 5
 
-    tab.field_names = [f"{Fore.CYAN}Catégorie", team1_name, team2_name + f"{Fore.RESET}"]
+    tab.field_names = [f"{Fore.CYAN}{text[1]}", team1_name, team2_name + Fore.RESET]
 
-    for element in team1_stats:
-        tab.add_row([Fore.CYAN + element + Fore.RESET, team1_stats[element], team2_stats[element]])
+    for i,element in enumerate(team1_stats):
+        tab.add_row([Fore.CYAN + text[i+2] + Fore.RESET, team1_stats[element], team2_stats[element]])
 
     print(tab)
 
